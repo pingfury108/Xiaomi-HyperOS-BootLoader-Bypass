@@ -276,7 +276,7 @@ while ($devices_count != 1) {
 }
 
 $device = $devices[0];
-$id = $adb -> getDeviceId($device[1], true);
+$id = "-s " . $device[0] . " ";
 logf("Processing device " . $device[0] . "(" . $device[1] . ")...");
 
 $adb -> clearLogcat($id);
@@ -326,6 +326,11 @@ if (is_resource($process)) {
 }
 
 logf("Refactoring parameters...");
+
+if ($args == null || $headers == null) {
+	logf("Fail to get account bind request, please try again.", "r", "!");
+	exit();
+}
 
 $data = json_decode(decryptData($args), true);
 
